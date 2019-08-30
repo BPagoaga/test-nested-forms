@@ -1,20 +1,21 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-radio-group (change)="onSelectedMeanChange($event)">
+    <mat-radio-button value="beef" name="food">Beef</mat-radio-button>
+    <mat-radio-button value="lamb" name="food">Lamb</mat-radio-button>
+  </mat-radio-group>
+<br>
+    <ng-container *ngIf="selectedMean === 'beef'">
+      <input type="text" [requiredIf]="selectedMean === 'beef'" placeholder="beef" formControlName="food">
+    </ng-container>
+    <ng-container *ngIf="selectedMean === 'lamb'">
+      <app-gps [requiredIf]="selectedMean === 'lamb'" [gps]="form.get('gps')"></app-gps>
+    </ng-container>
+
+    <!--<app-media formGroupName="media"></app-media>-->
+
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+  </form>
+
+  <p>Form value: {{ form.value | json }}</p>
